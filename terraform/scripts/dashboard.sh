@@ -5,18 +5,23 @@ set -e
 # Get the environment name from terraform variable or use default
 ENV_NAME=${ENV_NAME:-dev}
 
-# Check if k3d cluster exists
-echo "Checking if k3d cluster k3d-${ENV_NAME} exists..."
-if ! k3d cluster list | grep -q "k3d-${ENV_NAME}"; then
-  echo "ERROR: k3d cluster k3d-${ENV_NAME} not found!"
+# Check if k3d cluster exists (note: cluster name is just ENV_NAME, not k3d-ENV_NAME)
+echo "Checking if k3d cluster ${ENV_NAME} exists..."
+if ! k3d cluster list | grep -q "${ENV_NAME}"; then
+  echo "ERROR: k3d cluster ${ENV_NAME} not found!"
   echo "Available clusters:"
   k3d cluster list
   exit 1
 fi
 
+# Wait for cluster to be ready
+echo "Waiting for cluster ${ENV_NAME} to be ready..."
+k3d cluster start ${ENV_NAME} || true  # Start if not running
+sleep 5  # Give it a moment
+
 # Update kubeconfig for k3d cluster and set context
-echo "Updating kubeconfig for k3d-${ENV_NAME}..."
-k3d kubeconfig merge k3d-${ENV_NAME} --kubeconfig-switch-context
+echo "Updating kubeconfig for ${ENV_NAME}..."
+k3d kubeconfig merge ${ENV_NAME} --kubeconfig-switch-context
 
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml --validate=false --insecure-skip-tls-verify
 
