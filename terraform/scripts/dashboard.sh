@@ -2,6 +2,12 @@
 
 set -e
 
+# Get the environment name from terraform variable or use default
+ENV_NAME=${ENV_NAME:-dev}
+
+# Set kubectl context to k3d cluster
+kubectl config use-context k3d-${ENV_NAME}
+
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml --validate=false --insecure-skip-tls-verify
 
 cat <<EOF | kubectl apply -f - --insecure-skip-tls-verify
