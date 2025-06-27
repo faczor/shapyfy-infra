@@ -24,9 +24,10 @@ The server has:
 
 We are building terraform scripts to automate the deployment of the Shapyfy project on this server.
 This terraform is creating K3D clusters and deploying the Shapyfy project on them.
-All terraform changes will be deployed on remote server.
 
 Checklist for changes:
 1. Will this change work on K3D?
 2. Will this change work with 1 CPU and 4GB RAM?
-3. Is file added to the git?
+3. Is: terraform fmt
+4. Is file added to the git?
+5. 
