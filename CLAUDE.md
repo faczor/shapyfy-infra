@@ -30,3 +30,11 @@ Checklist for changes:
 1. Will this change work on K3D?
 2. Will this change work with 1 CPU and 4GB RAM?
 3. Is file added to the git?
+4. Verify if proper ports of the server are used
+
+Port lokalny	Port zewnętrzny	            Akcja
+20247	        srv35.mikr.us:20247		    TCP/UDP
+30247	        srv35.mikr.us:30247 	    TCP/UDP
+40086	        srv35.mikr.us:40086	          UDP
+40087	        srv35.mikr.us:40087	          UDP
+40088	        srv35.mikr.us:40088	          UDP
