@@ -5,8 +5,8 @@ set -e
 # Get the environment name from terraform variable or use default
 ENV_NAME=${ENV_NAME:-dev}
 
-# Set kubectl context to k3d cluster
-kubectl config use-context k3d-${ENV_NAME}
+# Update kubeconfig for k3d cluster and set context
+k3d kubeconfig merge k3d-${ENV_NAME} --kubeconfig-switch-context
 
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml --validate=false --insecure-skip-tls-verify
 

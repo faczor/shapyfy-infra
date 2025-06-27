@@ -22,6 +22,6 @@ resource "null_resource" "create_k3d_cluster" {
 resource "null_resource" "setup_dashboard" {
   depends_on = [null_resource.create_k3d_cluster]
   provisioner "local-exec" {
-    command = "bash ./scripts/dashboard.sh"
+    command = "ENV_NAME=${var.env_name} bash ./scripts/dashboard.sh"
   }
 }
