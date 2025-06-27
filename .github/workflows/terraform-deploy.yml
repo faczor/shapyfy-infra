@@ -3,7 +3,7 @@ name: Terraform Apply on Main
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   deploy:
