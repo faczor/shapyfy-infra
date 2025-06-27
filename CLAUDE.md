@@ -18,5 +18,6 @@ This is an infrastructure directory containing server credentials and configurat
 The infrastructure uses a VPS setup with SSH access on a non-standard port. Server credentials are stored in the `server-credentials` file for authorized access only.
 
 The server has:
+- K3D (Kubernetes in Docker) installed (and we want to use it)
 - Docker installed
 - Zsh shell configured
