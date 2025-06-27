@@ -1,17 +1,17 @@
-name: Terraform Apply on Push to Main
+name: Terraform Apply on Main
 
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   deploy:
-    name: Terraform Apply on Dev
+    name: Deploy to Server
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Setup SSH
@@ -21,9 +21,9 @@ jobs:
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Terraform Apply on server
+      - name: Deploy to server
         run: |
-          ssh -i ~/.ssh/id_ed25519 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} <<EOF
+          ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} <<'EOF'
             cd /root/shapyfy-infra/infra/dev
             terraform init -input=false
             terraform apply -auto-approve
