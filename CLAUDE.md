@@ -6,6 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is an infrastructure directory containing server credentials and configuration files for the Shapyfy project.
 
+
 ## Security Considerations
 
 - This directory contains sensitive server credentials in the `server-credentials` file
