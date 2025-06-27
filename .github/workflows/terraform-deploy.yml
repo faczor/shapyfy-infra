@@ -23,7 +23,7 @@ jobs:
       - name: Deploy to server
         run: |
           ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} -p ${{ secrets.SSH_PORT }} <<'EOF'
-            cd /root/shapyfy-infra/dev
+            cd /root/shapyfy-infra/infra/terraform
             terraform init -input=false
-            terraform apply -auto-approve
+            terraform apply -auto-approve -var-file=dev.tfvars
           EOF
